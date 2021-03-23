@@ -1,8 +1,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+
+using strange.extensions.mediation.impl;
+
 using UnityEngine;
 
-public class CanvasMV : MonoBehaviour, INotifyPropertyChanged
+public class CanvasMV : View, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 

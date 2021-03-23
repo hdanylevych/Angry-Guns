@@ -1,5 +1,4 @@
 using System;
-
 using Photon.Pun;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -10,7 +9,10 @@ public class LobbyMV : CanvasMV
     public static event Action PlayClicked;
 
     private const string PlayerNameKey = "PlayerName";
+    private bool _isChoosePanelActive;
     private string _playerName;
+
+    [Inject] public ILobbyController LobbyController { get; set; }
 
     [Binding]
     public string PlayerName
@@ -40,20 +42,34 @@ public class LobbyMV : CanvasMV
     }
 
     [Binding]
+    public bool IsChoosePanelActive
+    {
+        get => _isChoosePanelActive;
+
+        set
+        {
+            _isChoosePanelActive = value;
+
+            OnPropertyChanged();
+        }
+    }
+
+    [Binding]
     public void OnPlayClicked()
     {
         PlayClicked?.Invoke();
     }
 
+    [Binding]
+    public void ChangeHeroClicked()
+    {
+        IsChoosePanelActive = true;
+    }
+
     private void Start()
     {
-        if (PlayerPrefs.HasKey(PlayerNameKey))
-        {
-            PlayerName = PlayerPrefs.GetString(PlayerNameKey);
-        }
-        else
-        {
-            PlayerName = "Player";
-        }
+        base.Start();
+
+        PlayerName = LobbyController.Model.PlayerLogin;
     }
 }
