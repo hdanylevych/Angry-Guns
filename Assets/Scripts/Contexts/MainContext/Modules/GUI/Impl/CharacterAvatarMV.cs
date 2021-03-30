@@ -5,6 +5,7 @@ using UnityWeld.Binding;
 [Binding]
 public class CharacterAvatarMV : CanvasMV
 {
+    private bool _isChosen;
     private int _id;
     private Sprite _avatar;
 
@@ -24,6 +25,22 @@ public class CharacterAvatarMV : CanvasMV
         }
     }
 
+    [Binding]
+    public bool IsChosen
+    {
+        get => _isChosen;
+
+        set
+        {
+            if (_isChosen == value)
+                return;
+
+            _isChosen = value;
+
+            OnPropertyChanged();
+        }
+    }
+
     public int Id
     {
         get => _id;
@@ -34,12 +51,12 @@ public class CharacterAvatarMV : CanvasMV
         }
     }
 
-    public event Action<int> CharacterPicked;
+    public event Action<CharacterAvatarMV> CharacterPicked;
 
     [Binding]
     public void OnCharacterPressed()
     {
-        CharacterPicked?.Invoke(Id);
+        CharacterPicked?.Invoke(this);
     }
 
     public void Initialize(int id)

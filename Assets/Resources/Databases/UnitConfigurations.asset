@@ -19,3 +19,5 @@ MonoBehaviour:
     SkinId: 1
   - Id: 2
     SkinId: 2
+  - Id: 3
+    SkinId: 3

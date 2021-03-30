@@ -14,6 +14,7 @@ public class LobbyMV : CanvasMV
 
     [Inject] public ILobbyController LobbyController { get; set; }
     [Inject] public IUnitDatabase UnitDatabase { get; set; }
+    [Inject] public CharacterChoosenSignal CharacterChoosenSignal { get; set; }
 
     [Binding]
     public string PlayerName
@@ -67,10 +68,23 @@ public class LobbyMV : CanvasMV
         IsChoosePanelActive = true;
     }
 
+    [PostConstruct]
+    private void Initialize()
+    {
+        CharacterChoosenSignal.AddListener(OnNewCharacterChosen);
+    }
+
     private void Start()
     {
         base.Start();
 
         PlayerName = LobbyController.Model.PlayerLogin;
+    }
+
+    private void OnNewCharacterChosen(int id)
+    {
+        IsChoosePanelActive = false;
+
+        Debug.Log($"LobbyMV: Current Unit ID: {LobbyController.Model.CurrentUnitId}");
     }
 }

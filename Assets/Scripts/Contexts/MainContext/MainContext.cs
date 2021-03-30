@@ -10,7 +10,7 @@ public class MainContext : MVCSContext
     protected override void mapBindings()
     {
         injectionBinder.Bind<CharacterChoosenSignal>()
-            .To<CharacterChoosenSignal>();
+            .ToSingleton();
 
         injectionBinder.Bind<IUnitDatabase>()
             .To<UnitDatabase>()
