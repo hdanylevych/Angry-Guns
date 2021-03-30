@@ -15,7 +15,7 @@ public class InitializeLobbyGUICommand : Command
 
         LobbyController.Model.PlayerLogin = "Fearless";
 
-        var lobbyPrefab = Resources.Load<GameObject>("LobbyCanvasMV");
+        var lobbyPrefab = Resources.Load<GameObject>("GUI/LobbyCanvasMV");
 
         GameObject.Instantiate(lobbyPrefab, ContextRoot.transform);
     }

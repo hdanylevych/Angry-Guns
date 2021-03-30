@@ -12,6 +12,10 @@ public class MainContext : MVCSContext
         injectionBinder.Bind<CharacterChoosenSignal>()
             .To<CharacterChoosenSignal>();
 
+        injectionBinder.Bind<IUnitDatabase>()
+            .To<UnitDatabase>()
+            .ToSingleton();
+
         injectionBinder.Bind<ILobbyController>()
             .To<LobbyController>()
             .ToSingleton();
