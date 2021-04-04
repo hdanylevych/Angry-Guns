@@ -1,5 +1,8 @@
 using System;
 using Photon.Pun;
+
+using strange.extensions.context.api;
+
 using UnityEngine;
 using UnityWeld.Binding;
 
@@ -12,9 +15,13 @@ public class LobbyMV : CanvasMV
     private bool _isChoosePanelActive;
     private string _playerName;
 
+    private GameObject _currentHeroModel;
+    private UnitAnimationReferences _animationReferences;
+
     [Inject] public ILobbyController LobbyController { get; set; }
     [Inject] public IUnitDatabase UnitDatabase { get; set; }
     [Inject] public CharacterChoosenSignal CharacterChoosenSignal { get; set; }
+    [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject Root { get; set; }
 
     [Binding]
     public string PlayerName
@@ -72,6 +79,43 @@ public class LobbyMV : CanvasMV
     private void Initialize()
     {
         CharacterChoosenSignal.AddListener(OnNewCharacterChosen);
+
+        _animationReferences = Resources.Load<UnitAnimationReferences>("Databases/UnitAnimationReferences");
+
+        SpawnHero(LobbyController.Model.CurrentUnitId);
+    }
+
+    private void SpawnHero(int id)
+    {
+        // TODO: This chunk of code should be a part of UnitAnimationReferencesDatabase
+
+        GameObject characterPrefab = null;
+        
+        int skinId = UnitDatabase.Get(id).SkinId;
+
+        foreach (var animationReference in _animationReferences.animationReferences)
+        {
+            if (animationReference.SkinId == skinId)
+            {
+                characterPrefab = animationReference.Model;
+                break;
+            }
+        }
+
+        //
+
+        if (characterPrefab)
+        {
+            Destroy(_currentHeroModel);
+
+            _currentHeroModel = GameObject.Instantiate(characterPrefab, Root.transform);
+            _currentHeroModel.transform.localScale = new Vector3(3, 3, 3);
+            _currentHeroModel.transform.position = new Vector3(0, -2f, 0);
+        }
+        else
+        {
+            Debug.LogError($"LobbyMV: Couldn't find character model with skinId {skinId} and id {id}");
+        }
     }
 
     private void Start()
@@ -85,6 +129,6 @@ public class LobbyMV : CanvasMV
     {
         IsChoosePanelActive = false;
 
-        Debug.Log($"LobbyMV: Current Unit ID: {LobbyController.Model.CurrentUnitId}");
+        SpawnHero(id);
     }
 }
