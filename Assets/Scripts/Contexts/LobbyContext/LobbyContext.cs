@@ -1,9 +1,9 @@
 using strange.extensions.context.impl;
 using UnityEngine;
 
-public class MainContext : MVCSContext
+public class LobbyContext : MVCSContext
 {
-    public MainContext(MonoBehaviour view, bool autoStartup) : base(view, autoStartup) 
+    public LobbyContext(MonoBehaviour view, bool autoStartup) : base(view, autoStartup) 
     {
     }
 
@@ -13,8 +13,9 @@ public class MainContext : MVCSContext
             .ToSingleton();
 
         injectionBinder.Bind<IUnitDatabase>()
-            .To<UnitDatabase>()
-            .ToSingleton();
+            .To<UnitDatabase>() 
+            .ToSingleton()
+            .CrossContext();
 
         injectionBinder.Bind<ILobbyController>()
             .To<LobbyController>()

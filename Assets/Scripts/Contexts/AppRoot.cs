@@ -5,7 +5,7 @@ public class AppRoot : ContextView
 {
     private void Awake()
     {
-        var context = new MainContext(this, true);
+        var context = new LobbyContext(this, true);
         context.Start();
     }
 }

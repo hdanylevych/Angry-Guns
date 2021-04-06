@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        _playerPrefab = Resources.Load<GameObject>("Robot Kyle");
+        _playerPrefab = Resources.Load<GameObject>("Abe");
 
         if (_playerPrefab == null)
         {
