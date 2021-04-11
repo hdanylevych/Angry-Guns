@@ -21,6 +21,7 @@ public class LobbyMV : CanvasMV
     [Inject] public ILobbyController LobbyController { get; set; }
     [Inject] public IUnitDatabase UnitDatabase { get; set; }
     [Inject] public CharacterChoosenSignal CharacterChoosenSignal { get; set; }
+    [Inject] public BattleSceneLoadedSignal BattleSceneLoadedSignal { get; set; }
     [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject Root { get; set; }
 
     [Binding]
@@ -83,6 +84,8 @@ public class LobbyMV : CanvasMV
         _animationReferences = Resources.Load<UnitAnimationReferences>("Databases/UnitAnimationReferences");
 
         SpawnHero(LobbyController.Model.CurrentUnitId);
+
+        Launcher.OnSceneLoaded += () => BattleSceneLoadedSignal.Dispatch();
     }
 
     private void SpawnHero(int id)

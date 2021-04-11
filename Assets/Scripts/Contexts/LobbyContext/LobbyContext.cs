@@ -9,6 +9,9 @@ public class LobbyContext : MVCSContext
 
     protected override void mapBindings()
     {
+        injectionBinder.Bind<BattleSceneLoadedSignal>()
+            .ToSingleton();
+
         injectionBinder.Bind<CharacterChoosenSignal>()
             .ToSingleton();
 

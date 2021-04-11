@@ -1,3 +1,5 @@
+using System;
+
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -5,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
+    public static event Action OnSceneLoaded;
+
     private const string GameVersion = "1";
 
     private bool isConnecting;
@@ -84,9 +88,17 @@ public class Launcher : MonoBehaviourPunCallbacks
 
             // #Critical
             // Load the Room Level.
-            PhotonNetwork.LoadLevel("Room for 4", LoadSceneMode.Additive);
-        }
+            var asyncOperation = PhotonNetwork.LoadLevel("Room for 4", LoadSceneMode.Additive);
 
+            if (asyncOperation.isDone)
+            {
+                OnSceneLoaded?.Invoke();
+            }
+            else
+            {
+                asyncOperation.completed += (operation) => OnSceneLoaded?.Invoke();
+            }
+        }
     }
 
     private void OnDestroy()
