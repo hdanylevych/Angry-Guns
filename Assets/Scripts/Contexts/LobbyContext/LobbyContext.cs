@@ -28,6 +28,10 @@ public class LobbyContext : MVCSContext
             .To<UnitController>()
             .ToSingleton();
 
+        injectionBinder.Bind<ISceneTransitionController>()
+            .To<SceneTransitionController>()
+            .ToSingleton();
+
         commandBinder.Bind<ContextStartSignal>()
             .To<InitializeUnitsCommand>()
             .To<InitializeLobbyGUICommand>();

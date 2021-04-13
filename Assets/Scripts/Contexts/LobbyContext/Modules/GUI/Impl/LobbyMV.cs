@@ -4,6 +4,8 @@ using Photon.Pun;
 using strange.extensions.context.api;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 using UnityWeld.Binding;
 
 [Binding]
@@ -84,8 +86,6 @@ public class LobbyMV : CanvasMV
         _animationReferences = Resources.Load<UnitAnimationReferences>("Databases/UnitAnimationReferences");
 
         SpawnHero(LobbyController.Model.CurrentUnitId);
-
-        Launcher.OnSceneLoaded += () => BattleSceneLoadedSignal.Dispatch();
     }
 
     private void SpawnHero(int id)

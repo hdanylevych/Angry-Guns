@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    public static event Action OnSceneLoaded;
-
     private const string GameVersion = "1";
-
     private bool isConnecting;
 
     [SerializeField] private byte _maxPlayersInRoom = 8;
@@ -88,16 +85,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
             // #Critical
             // Load the Room Level.
-            var asyncOperation = PhotonNetwork.LoadLevel("Room for 4", LoadSceneMode.Additive);
-
-            if (asyncOperation.isDone)
-            {
-                OnSceneLoaded?.Invoke();
-            }
-            else
-            {
-                asyncOperation.completed += (operation) => OnSceneLoaded?.Invoke();
-            }
+            PhotonNetwork.LoadLevel("Battle", LoadSceneMode.Additive);
         }
     }
 
