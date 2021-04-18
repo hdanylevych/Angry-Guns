@@ -2946,7 +2946,7 @@ namespace Photon.Pun
         /// <param name='levelNumber'>
         /// Build-index number of the level to load. When using level numbers, make sure they are identical on all clients.
         /// </param>
-        public static void LoadLevel(int levelNumber, LoadSceneMode mode = LoadSceneMode.Single)
+        public static void LoadLevel(int levelNumber, LoadSceneMode mode = LoadSceneMode.Additive)
         {
             if (PhotonHandler.AppQuits)
             {
@@ -2988,7 +2988,7 @@ namespace Photon.Pun
         /// <param name='levelName'>
         /// Name of the level to load. Make sure it's available to all clients in the same room.
         /// </param>
-        public static void LoadLevel(string levelName, LoadSceneMode mode = LoadSceneMode.Single)
+        public static void LoadLevel(string levelName, LoadSceneMode mode = LoadSceneMode.Additive)
         {
             if (PhotonHandler.AppQuits)
             {

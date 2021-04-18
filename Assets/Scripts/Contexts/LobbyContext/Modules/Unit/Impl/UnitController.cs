@@ -8,8 +8,6 @@ public class UnitController : IUnitController
 
     public void Initialize()
     {
-        var unitTestObject = new GameObject("TEST GAME OBJECT");
-        unitTestObject.transform.parent = ContextRoot.transform;
     }
 
     public void Update(float deltaTime)

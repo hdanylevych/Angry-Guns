@@ -11,4 +11,5 @@ public class UnitAnimationReferences : ScriptableObject
 public class UnitAnimationReference {
     public int SkinId;
     public GameObject Model;
+    public GameObject PhotonViewModel;
 }

@@ -1,4 +1,5 @@
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class SceneTransitionController : ISceneTransitionController
 {
@@ -12,6 +13,8 @@ public class SceneTransitionController : ISceneTransitionController
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("OnSceneLoaded called");
+
         if (scene.name == "Lobby")
             return;
 

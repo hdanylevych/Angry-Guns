@@ -10,7 +10,14 @@ public class BattleContext : MVCSContext
 
     protected override void mapBindings()
     {
+        injectionBinder.Bind<IUnitController>()
+            .To<UnitController>()
+            .ToSingleton();
+
         commandBinder.Bind<ContextStartSignal>()
-            .To<InitializeBattleGUICommand>();
+            .To<InitializeBattleGUICommand>()
+            .To<InitializeUnitsCommand>()
+            .InSequence()
+            .Once();
     }
 }

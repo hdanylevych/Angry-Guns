@@ -22,18 +22,21 @@ public class LobbyContext : MVCSContext
 
         injectionBinder.Bind<ILobbyController>()
             .To<LobbyController>()
-            .ToSingleton();
+            .ToSingleton()
+            .CrossContext();
 
-        injectionBinder.Bind<IUnitController>()
-            .To<UnitController>()
-            .ToSingleton();
+        injectionBinder.Bind<IUnitAnimationDatabase>()
+            .To<UnitAnimationDatabase>()
+            .ToSingleton()
+            .CrossContext();
 
         injectionBinder.Bind<ISceneTransitionController>()
             .To<SceneTransitionController>()
             .ToSingleton();
 
         commandBinder.Bind<ContextStartSignal>()
-            .To<InitializeUnitsCommand>()
-            .To<InitializeLobbyGUICommand>();
+            .To<InitializeLobbyGUICommand>()
+            .InSequence()
+            .Once();
     }
 }

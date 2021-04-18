@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    private GameObject _playerPrefab;
-
-    private void Start()
+    public GameObject Initialize(string playerPrefabName)
     {
-        _playerPrefab = Resources.Load<GameObject>("Abe");
+        GameObject playerInstance = null;
 
-        if (_playerPrefab == null)
+        if (playerPrefabName == string.Empty)
         {
             Debug.LogError($"GameManager: couldn't locate player prefab by path: {"Robot Kyle"} ");
         }
@@ -20,14 +18,18 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+
                 // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                PhotonNetwork.Instantiate(_playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                playerInstance = PhotonNetwork.Instantiate("PhotonViewModels/" + playerPrefabName, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                playerInstance.transform.parent = gameObject.transform.parent;
             }
             else
             {
                 Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
             }
         }
+
+        return playerInstance;
     }
 
     /// <summary>

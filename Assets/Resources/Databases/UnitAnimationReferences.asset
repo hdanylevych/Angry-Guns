@@ -15,7 +15,17 @@ MonoBehaviour:
   animationReferences:
   - SkinId: 0
     Model: {fileID: 8670442896422023243, guid: c8aa636d000430443b92baf68070d6cd, type: 3}
+    PhotonViewModel: {fileID: 8670442896422023243, guid: 196c8116db901814d94cfa2b22fcd2dc,
+      type: 3}
   - SkinId: 1
-    Model: {fileID: 5173817332634450678, guid: 1187e65c334869241a3ce06be7de0bef, type: 3}
+    Model: {fileID: 4075151227475264777, guid: 6500ddbcd3de2b349aadb9ac114ac609, type: 3}
+    PhotonViewModel: {fileID: 4075151227475264777, guid: d37e43d6b0262054597850a20b36e16b,
+      type: 3}
   - SkinId: 2
+    Model: {fileID: 5173817332634450678, guid: 1187e65c334869241a3ce06be7de0bef, type: 3}
+    PhotonViewModel: {fileID: 5173817332634450678, guid: f77e63c8511dfd24e95aa27ed5148d63,
+      type: 3}
+  - SkinId: 3
     Model: {fileID: 7166391649033284106, guid: 98688e89e46105f4b9ee985de6780d86, type: 3}
+    PhotonViewModel: {fileID: 7166391649033284106, guid: 93f148f3dcce2a646a8632a880817837,
+      type: 3}

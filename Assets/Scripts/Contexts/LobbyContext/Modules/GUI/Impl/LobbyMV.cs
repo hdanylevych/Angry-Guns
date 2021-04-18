@@ -21,9 +21,8 @@ public class LobbyMV : CanvasMV
     private UnitAnimationReferences _animationReferences;
 
     [Inject] public ILobbyController LobbyController { get; set; }
-    [Inject] public IUnitDatabase UnitDatabase { get; set; }
+    [Inject] public IUnitAnimationDatabase UnitAnimationDatabase { get; set; }
     [Inject] public CharacterChoosenSignal CharacterChoosenSignal { get; set; }
-    [Inject] public BattleSceneLoadedSignal BattleSceneLoadedSignal { get; set; }
     [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject Root { get; set; }
 
     [Binding]
@@ -90,22 +89,7 @@ public class LobbyMV : CanvasMV
 
     private void SpawnHero(int id)
     {
-        // TODO: This chunk of code should be a part of UnitAnimationReferencesDatabase
-
-        GameObject characterPrefab = null;
-        
-        int skinId = UnitDatabase.Get(id).SkinId;
-
-        foreach (var animationReference in _animationReferences.animationReferences)
-        {
-            if (animationReference.SkinId == skinId)
-            {
-                characterPrefab = animationReference.Model;
-                break;
-            }
-        }
-
-        //
+        GameObject characterPrefab = UnitAnimationDatabase.GetById(id).Model;
 
         if (characterPrefab)
         {
@@ -117,7 +101,7 @@ public class LobbyMV : CanvasMV
         }
         else
         {
-            Debug.LogError($"LobbyMV: Couldn't find character model with skinId {skinId} and id {id}");
+            Debug.LogError($"LobbyMV: Couldn't find character model with id {id}");
         }
     }
 
