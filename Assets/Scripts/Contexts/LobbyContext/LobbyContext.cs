@@ -21,6 +21,7 @@ public class LobbyContext : MVCSContext
             .CrossContext();
 
         injectionBinder.Bind<ILobbyController>()
+            .Bind<ILobbyStateProvider>()
             .To<LobbyController>()
             .ToSingleton()
             .CrossContext();

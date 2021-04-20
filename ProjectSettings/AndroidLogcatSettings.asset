@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "394e573558363098",
         "name": "com.DefaultCompany.AngryGuns",
-        "processId": 18931,
+        "processId": 29686,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -36,6 +36,30 @@
             "deviceId": "394e573558363098",
             "name": "com.DefaultCompany.AngryGuns",
             "processId": 18931,
+            "exited": false
+        },
+        {
+            "deviceId": "394e573558363098",
+            "name": "com.DefaultCompany.AngryGuns",
+            "processId": 32049,
+            "exited": false
+        },
+        {
+            "deviceId": "394e573558363098",
+            "name": "com.DefaultCompany.AngryGuns",
+            "processId": 28563,
+            "exited": false
+        },
+        {
+            "deviceId": "394e573558363098",
+            "name": "com.DefaultCompany.AngryGuns",
+            "processId": 24726,
+            "exited": false
+        },
+        {
+            "deviceId": "394e573558363098",
+            "name": "com.DefaultCompany.AngryGuns",
+            "processId": 29686,
             "exited": false
         }
     ],

@@ -5,33 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public GameObject Initialize(string playerPrefabName)
-    {
-        GameObject playerInstance = null;
-
-        if (playerPrefabName == string.Empty)
-        {
-            Debug.LogError($"GameManager: couldn't locate player prefab by path: {"Robot Kyle"} ");
-        }
-        else
-        {
-            if (PlayerManager.LocalPlayerInstance == null)
-            {
-                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-
-                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                playerInstance = PhotonNetwork.Instantiate("PhotonViewModels/" + playerPrefabName, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
-                playerInstance.transform.parent = gameObject.transform.parent;
-            }
-            else
-            {
-                Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
-            }
-        }
-
-        return playerInstance;
-    }
-
     /// <summary>
     /// Called when the local player left the room. We need to load the launcher scene.
     /// </summary>

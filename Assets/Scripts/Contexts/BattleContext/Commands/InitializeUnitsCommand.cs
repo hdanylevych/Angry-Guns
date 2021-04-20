@@ -1,3 +1,4 @@
+using Photon.Pun;
 using strange.extensions.command.impl;
 using strange.extensions.context.api;
 
@@ -20,7 +21,25 @@ public class InitializeUnitsCommand : Command
 
         var playerUnitPrefabName = UnitAnimationDatabase.GetById(LobbyController.Model.CurrentUnitId).PhotonViewModel.name;
 
-        var playerInstance = gameManagerInstance.GetComponent<GameManager>().Initialize(playerUnitPrefabName);
+        if (playerUnitPrefabName == string.Empty)
+        {
+            Debug.LogError($"GameManager: couldn't locate player prefab by path: {playerUnitPrefabName} ");
+        }
+        else
+        {
+            if (PlayerManager.LocalPlayerInstance == null)
+            {
+                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+
+                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
+                var playerInstance = PhotonNetwork.Instantiate("PhotonViewModels/" + playerUnitPrefabName, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                playerInstance.transform.parent = Root.transform.parent;
+            }
+            else
+            {
+                Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+            }
+        }
         
         UnitController.Initialize();
     }

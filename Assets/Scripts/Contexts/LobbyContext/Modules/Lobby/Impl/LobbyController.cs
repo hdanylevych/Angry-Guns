@@ -1,4 +1,4 @@
-public class LobbyController : ILobbyController
+public class LobbyController : ILobbyController, ILobbyStateProvider
 {
     private LobbyModel _model;
 

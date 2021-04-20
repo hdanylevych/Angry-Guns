@@ -2,15 +2,18 @@ using System;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviourPun
+public class PlayerManager : MonoBehaviourPun, IPunObservable
 {
     public static GameObject LocalPlayerInstance;
     public static event Action<GameObject> LocalPlayerInstanceCreated;
+
+    public bool IsMine { get; private set; }
 
     private void Start()
     {
         if (photonView.IsMine)
         {
+            IsMine = true;
             LocalPlayerInstance = gameObject;
             LocalPlayerInstanceCreated?.Invoke(LocalPlayerInstance);
         }
@@ -30,5 +33,16 @@ public class PlayerManager : MonoBehaviourPun
     public void OnDisable()
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+        }
+        else
+        {
+            
+        }
     }
 }
