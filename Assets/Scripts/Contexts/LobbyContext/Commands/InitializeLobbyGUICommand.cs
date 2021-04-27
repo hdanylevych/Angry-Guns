@@ -12,7 +12,7 @@ public class InitializeLobbyGUICommand : Command
     public override void Execute()
     {
         LobbyController.Initialize();
-        LobbyController.Model.PlayerLogin = "Fearless";
+        LobbyController.Model.PlayerNickname = "Fearless";
 
         var lobbyPrefab = Resources.Load<GameObject>("GUI/LobbyCanvasMV");
 

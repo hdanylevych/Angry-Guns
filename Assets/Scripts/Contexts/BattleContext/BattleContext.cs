@@ -15,8 +15,8 @@ public class BattleContext : MVCSContext
             .ToSingleton();
 
         commandBinder.Bind<ContextStartSignal>()
-            .To<InitializeBattleGUICommand>()
             .To<InitializeUnitsCommand>()
+            .To<InitializeBattleGUICommand>()
             .InSequence()
             .Once();
     }

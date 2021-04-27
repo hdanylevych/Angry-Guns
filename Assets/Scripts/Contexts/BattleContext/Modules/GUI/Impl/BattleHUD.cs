@@ -19,5 +19,4 @@ public class BattleHUD : View
     {
         instance = this;
     }
-
 }

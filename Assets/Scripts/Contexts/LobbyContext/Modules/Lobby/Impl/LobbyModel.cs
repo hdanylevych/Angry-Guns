@@ -2,13 +2,13 @@ public class LobbyModel
 {
     private LobbyState _state;
 
-    public string PlayerLogin
+    public string PlayerNickname
     {
-        get => _state.PlayerLogin;
+        get => _state.PlayerNickname;
 
         set
         {
-            _state.PlayerLogin = value;
+            _state.PlayerNickname = value;
         }
     }
 

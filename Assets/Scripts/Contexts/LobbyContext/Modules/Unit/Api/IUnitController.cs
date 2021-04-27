@@ -1,5 +1,5 @@
 public interface IUnitController
 {
-    void Initialize();
+    void Initialize(UnitModel model);
     void Update(float deltaTime);
 }

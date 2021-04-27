@@ -109,7 +109,7 @@ public class LobbyMV : CanvasMV
     {
         base.Start();
 
-        PlayerName = LobbyController.Model.PlayerLogin;
+        PlayerName = LobbyController.Model.PlayerNickname;
     }
 
     private void OnNewCharacterChosen(int id)
