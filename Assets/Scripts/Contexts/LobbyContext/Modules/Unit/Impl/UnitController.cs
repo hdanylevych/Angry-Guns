@@ -1,15 +1,20 @@
 using strange.extensions.context.api;
+using System.Collections.Generic;
 
 using UnityEngine;
 
 public class UnitController : IUnitController
 {
-    private UnitModel _playerModel;
+    private List<UnitModel> _models;
+
+    public IReadOnlyList<UnitModel> Models => _models;
+
     [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject ContextRoot { get; set; }
 
     public void Initialize(UnitModel model)
     {
-        _playerModel = model;
+        _models = new List<UnitModel>(6);
+        _models.Add(model);
     }
 
     public void Update(float deltaTime)

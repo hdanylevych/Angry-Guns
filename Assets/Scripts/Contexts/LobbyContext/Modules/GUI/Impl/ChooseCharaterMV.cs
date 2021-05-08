@@ -8,7 +8,6 @@ public class ChooseCharaterMV : CanvasMV
     private const string AvatarPrefabLocation = "GUI/CharacterAvatarMV";
 
     private GameObject _avatarPrefab;
-    private List<CharacterAvatarMV> _avatars = new List<CharacterAvatarMV>(5);
     private CharacterAvatarMV _chosenAvatar;
 
     [SerializeField] private Transform _contentTransform;
@@ -37,7 +36,6 @@ public class ChooseCharaterMV : CanvasMV
     [Binding]
     public void ChooseButtonPressed()
     {
-        Debug.Log($"CHARACTER ID: {_chosenAvatar.Id}");
         CharacterChoosenSignal.Dispatch(_chosenAvatar.Id);
     }
 
@@ -52,8 +50,6 @@ public class ChooseCharaterMV : CanvasMV
             {
                 avatarMV.Initialize(config.Id);
                 avatarMV.CharacterPicked += OnCharacterPicked;
-
-                _avatars.Add(avatarMV);
             }
             else
             {

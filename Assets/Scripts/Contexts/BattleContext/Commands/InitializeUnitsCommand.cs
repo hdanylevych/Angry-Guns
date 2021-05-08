@@ -37,9 +37,12 @@ public class InitializeUnitsCommand : Command
 
                 var modelSize = playerInstance.GetComponent<CharacterController>().bounds.size;
 
-                var model = UnitModel(playerInstance.transform.position,
-                    modelSize,
-                    LobbyStateProvider.Model.CurrentUnitId);
+                var model = new UnitModel(
+                                        playerInstance.transform.position,
+                                        modelSize,
+                                        LobbyStateProvider.Model.CurrentUnitId);
+
+                playerInstance.GetComponent<UnitMovementController>().Initialize(model);
 
                 UnitController.Initialize(model);
             }

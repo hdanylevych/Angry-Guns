@@ -10,6 +10,10 @@ public class BattleContext : MVCSContext
 
     protected override void mapBindings()
     {
+        injectionBinder.Bind<IHeroMediator>()
+            .To<HeroMediator>()
+            .ToSingleton();
+
         injectionBinder.Bind<IUnitController>()
             .To<UnitController>()
             .ToSingleton();

@@ -3,6 +3,7 @@ using UnityWeld.Binding;
 [Binding]
 public class HeroMV : CanvasMV
 {
+    private UnitModel _model;
     private string _nickname = "Player";
 
     [Binding]
@@ -16,5 +17,10 @@ public class HeroMV : CanvasMV
 
             OnPropertyChanged();
         }
+    }
+
+    public void Initialize(UnitModel model)
+    {
+        _model = model;
     }
 }

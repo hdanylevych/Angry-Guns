@@ -18,7 +18,6 @@ public class LobbyMV : CanvasMV
     private string _playerName;
 
     private GameObject _currentHeroModel;
-    private UnitAnimationReferences _animationReferences;
 
     [Inject] public ILobbyController LobbyController { get; set; }
     [Inject] public IUnitAnimationDatabase UnitAnimationDatabase { get; set; }
@@ -81,8 +80,6 @@ public class LobbyMV : CanvasMV
     private void Initialize()
     {
         CharacterChoosenSignal.AddListener(OnNewCharacterChosen);
-
-        _animationReferences = Resources.Load<UnitAnimationReferences>("Databases/UnitAnimationReferences");
 
         SpawnHero(LobbyController.Model.CurrentUnitId);
     }

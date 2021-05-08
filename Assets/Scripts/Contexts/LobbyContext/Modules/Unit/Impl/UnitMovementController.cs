@@ -1,3 +1,5 @@
+using Photon.Pun;
+
 using UnityEngine;
 
 public class UnitMovementController : MonoBehaviour
@@ -6,6 +8,13 @@ public class UnitMovementController : MonoBehaviour
     private VariableJoystick _joystick;
     private CharacterController _controller;
     private PlayerManager _playerManager;
+
+    private UnitModel _model;
+
+    public void Initialize(UnitModel model)
+    {
+        _model = model;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,5 +38,7 @@ public class UnitMovementController : MonoBehaviour
         _animator.SetFloat("VelocityZ", _joystick.Vertical);
 
         _controller.Move(move * Time.deltaTime * 15);
+
+        _model.CurrentPosition = transform.position;
     }
 }
