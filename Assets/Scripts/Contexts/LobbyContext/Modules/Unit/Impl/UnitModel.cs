@@ -1,11 +1,19 @@
+using System;
+
 using UnityEngine;
 
-public class UnitModel : IUnitModel
+[Serializable]
+public class UnitModel
 {
-    public int Id { get; private set; }
-    public int SkinId { get; private set; }
-    public Vector3 CurrentPosition { get; set; }
-    public Vector3 Size { get; set; }
+    public int Id;
+    public int SkinId;
+    public string Nickname;
+    public Vector3 CurrentPosition;
+    public Vector3 Size;
+
+    public UnitModel()
+    {
+    }
 
     public UnitModel(Vector3 position, Vector3 size, int id)
     {

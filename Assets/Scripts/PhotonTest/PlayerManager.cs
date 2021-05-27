@@ -7,7 +7,16 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
     public static GameObject LocalPlayerInstance;
     public static event Action<GameObject> LocalPlayerInstanceCreated;
 
+    private UnitModel _model;
+
     public bool IsMine { get; private set; }
+
+    public void Initialize(UnitModel model)
+    {
+        _model = model;
+
+        model.Nickname = PhotonNetwork.NickName;
+    }
 
     private void Start()
     {
@@ -39,10 +48,25 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
+            if (IsMine)
+            {
+                string serializedModel = JsonUtility.ToJson(_model);
+
+                Debug.Log("Model to send: \n" + serializedModel);
+
+                stream.SendNext(serializedModel);
+            }
         }
         else
         {
-            
+            if (!IsMine)
+            {
+                string serializedModel = (string)stream.ReceiveNext();
+
+                Debug.Log("Received model: \n" + serializedModel);
+
+                _model = JsonUtility.FromJson<UnitModel>(serializedModel);
+            }
         }
     }
 }

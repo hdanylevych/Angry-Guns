@@ -43,6 +43,7 @@ public class InitializeUnitsCommand : Command
                                         LobbyStateProvider.Model.CurrentUnitId);
 
                 playerInstance.GetComponent<UnitMovementController>().Initialize(model);
+                playerInstance.GetComponent<PlayerManager>().Initialize(model);
 
                 UnitController.Initialize(model);
             }
