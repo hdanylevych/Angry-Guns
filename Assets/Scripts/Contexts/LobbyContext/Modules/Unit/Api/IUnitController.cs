@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 
 public interface IUnitController
 {
-    IReadOnlyList<UnitModel> Models { get; }
+    event Action<UnitModel> NewModelReceived;
 
-    void Initialize(UnitModel model);
-    void Update(float deltaTime);
+    IReadOnlyList<UnitModel> Models { get; }
+    void AddModel(UnitModel model);
 }

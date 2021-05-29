@@ -12,23 +12,30 @@ public class HeroMediator : IHeroMediator
     private GameObject heroRoot;
 
     [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject ContextView { get; set; }
+    [Inject] public IUnitController UnitController { get; set; }
 
-    public void Initialize(IReadOnlyList<UnitModel> unitModels)
+    [PostConstruct]
+    public void Initialize()
     {
-        _unitModels = unitModels;
-
         heroRoot = new GameObject("Heroes (UI)");
         heroRoot.transform.parent = ContextView.transform;
+        
+        UnitController.NewModelReceived += OnNewModelReceived;
+    }
 
-        foreach (var model in unitModels)
-        {
-            var heroCanvasPrefab = Resources.Load<GameObject>(HeroCanvasPrefabLocation);
-            var heroCanvasInstance = GameObject.Instantiate(heroCanvasPrefab, heroRoot.transform);
+    private void OnNewModelReceived(UnitModel model)
+    {
+        var heroCanvasPrefab = Resources.Load<GameObject>(HeroCanvasPrefabLocation);
+        var heroCanvasInstance = GameObject.Instantiate(heroCanvasPrefab, heroRoot.transform);
 
-            var heroMV = heroCanvasInstance.GetComponent<HeroMV>();
-            heroMV.Initialize(model);
+        var heroMV = heroCanvasInstance.GetComponent<HeroMV>();
+        heroMV.Initialize(model);
 
-            _heroes.Add(heroMV);
-        }
+        _heroes.Add(heroMV);
+    }
+
+    ~HeroMediator()
+    {
+        UnitController.NewModelReceived -= OnNewModelReceived;
     }
 }

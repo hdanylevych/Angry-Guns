@@ -45,7 +45,7 @@ public class InitializeUnitsCommand : Command
                 playerInstance.GetComponent<UnitMovementController>().Initialize(model);
                 playerInstance.GetComponent<PlayerManager>().Initialize(model);
 
-                UnitController.Initialize(model);
+                UnitController.AddModel(model);
             }
             else
             {

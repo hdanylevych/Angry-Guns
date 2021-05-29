@@ -1,3 +1,5 @@
+using UnityEngine;
+
 using UnityWeld.Binding;
 
 [Binding]
@@ -22,5 +24,12 @@ public class HeroMV : CanvasMV
     public void Initialize(UnitModel model)
     {
         _model = model;
+
+        Nickname = model.Nickname;
+    }
+
+    private void Update()
+    {
+        transform.position = _model.CurrentPosition + new Vector3(0, 7, 0);
     }
 }
