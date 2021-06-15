@@ -8,7 +8,7 @@ public struct SerializableUnitModel
 {
     public int UnitId;
     public int SkinId;
-    public int Health;
+    public int HP;
     public string UserId;
     public string Nickname;
     public Vector3 CurrentPosition;

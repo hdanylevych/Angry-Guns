@@ -3,9 +3,13 @@ using UnityEngine;
 
 public class UnitModel
 {
+    private UnitConfiguration _config;
+    
+    public int MaxHP => _config.HP;
+
     public int UnitId { get; private set; }
     public int SkinId { get; set; }
-    public int Health { get; set; }
+    public int HP { get; set; }
     public string UserId { get; set; }
     public string Nickname { get; set; }
     public Vector3 CurrentPosition { get; set; }
@@ -21,7 +25,7 @@ public class UnitModel
                     Nickname = Nickname,
                     CurrentPosition = CurrentPosition,
                     Size = Size,
-                    Health = Health
+                    HP = HP
                 };
 
         set
@@ -32,18 +36,17 @@ public class UnitModel
             Nickname = value.Nickname;
             CurrentPosition = value.CurrentPosition;
             Size = value.Size;
-            Health = value.Health;
+            HP = value.HP;
         }
     }
 
-    public UnitModel()
+    public UnitModel(Vector3 position, Vector3 size, UnitConfiguration config)
     {
-    }
+        _config = config;
 
-    public UnitModel(Vector3 position, Vector3 size, int unitId)
-    {
-        UnitId = unitId;
+        UnitId = config.Id;
         CurrentPosition = position;
         Size = size;
+        HP = MaxHP;
     }
 }

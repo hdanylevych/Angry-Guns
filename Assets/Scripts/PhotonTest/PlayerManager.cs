@@ -4,11 +4,36 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviourPun, IPunObservable
 {
+    private const string UnitConfigLocation = "Databases/UnitConfigurations";
+
     public static GameObject LocalPlayerInstance;
     public static event Action<GameObject> LocalPlayerInstanceCreated;
 
     private UnitModel _model;
 
+    private UnitConfiguration[] _unitConfigurations;
+    private UnitConfiguration[] UnitConfigurations
+    {
+        get
+        {
+            if (_unitConfigurations == null)
+            {
+                var unitConfigObject = Resources.Load<UnitConfigurations>(UnitConfigLocation);
+
+                if (unitConfigObject)
+                {
+                    _unitConfigurations = unitConfigObject.unitConfigurations;
+                }
+                else
+                {
+                    Debug.LogError($"Error: failed loading UnitConfiguration with path {UnitConfigLocation}");
+                }
+            }
+
+            return _unitConfigurations;
+        }
+    }
+    
     public bool IsMine { get; private set; }
 
     public void Initialize(UnitModel model)
@@ -56,23 +81,42 @@ public class PlayerManager : MonoBehaviourPun, IPunObservable
                 stream.SendNext(serializedModel);
             }
         }
-        else
+        else if (!IsMine)
         {
-            if (IsMine)
-                return;
-
             string serializedModel = (string)stream.ReceiveNext();
+            var sharedUnitModel = JsonUtility.FromJson<SerializableUnitModel>(serializedModel);
 
             if (_model == null)
             {
-                _model = new UnitModel();
-                _model.SerializableModel = JsonUtility.FromJson<SerializableUnitModel>(serializedModel);
-                UnitController.Instance.AddModel(_model);
+                CreateUnitModel(sharedUnitModel);
             }
             else
             {
-                _model.SerializableModel = JsonUtility.FromJson<SerializableUnitModel>(serializedModel);
+                _model.SerializableModel = sharedUnitModel;
             }
         }
+    }
+
+    private void CreateUnitModel(SerializableUnitModel sharedUnitModel)
+    {
+        var config = GetUnitConfiguration(sharedUnitModel.UnitId);
+
+        _model = new UnitModel(Vector3.zero, Vector3.zero, config);
+        _model.SerializableModel = sharedUnitModel;
+
+        UnitController.Instance.AddModel(_model);
+    }
+
+    public UnitConfiguration GetUnitConfiguration(int id)
+    {
+        foreach (var config in UnitConfigurations)
+        {
+            if (config.Id == id)
+            {
+                return config;
+            }
+        }
+
+        return UnitConfiguration.Null;
     }
 }

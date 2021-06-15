@@ -17,11 +17,13 @@ public class UnitConfiguration
             return new UnitConfiguration
                        {
                            Id = 0,
-                           SkinId = 0
+                           SkinId = 0,
+                           HP = 0
                        };
         }
     }
 
     public int Id;
     public int SkinId;
+    public int HP;
 }

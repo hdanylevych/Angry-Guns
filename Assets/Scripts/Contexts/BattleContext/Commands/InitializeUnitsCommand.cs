@@ -3,13 +3,13 @@ using strange.extensions.command.impl;
 using strange.extensions.context.api;
 
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class InitializeUnitsCommand : Command
 {
     private const string GameManagerPrefabLocation = "GameManager";
     
     [Inject] public IUnitController UnitController { get; set; }
+    [Inject] public IUnitDatabase UnitDatabase { get; set; }
     [Inject] public ILobbyStateProvider LobbyStateProvider { get; set; }
     [Inject] public IUnitAnimationDatabase UnitAnimationDatabase { get; set; }
     [Inject(ContextKeys.CONTEXT_VIEW)] public GameObject Root { get; set; }
@@ -36,16 +36,14 @@ public class InitializeUnitsCommand : Command
                 playerInstance.transform.parent = Root.transform;
 
                 var modelSize = playerInstance.GetComponent<CharacterController>().bounds.size;
+                var config = UnitDatabase.Get(LobbyStateProvider.Model.CurrentUnitId);
 
-                var model = new UnitModel(
-                                        playerInstance.transform.position,
-                                        modelSize,
-                                        LobbyStateProvider.Model.CurrentUnitId);
+                var model = new UnitModel(playerInstance.transform.position, modelSize, config);
 
                 playerInstance.GetComponent<UnitMovementController>().Initialize(model);
                 playerInstance.GetComponent<PlayerManager>().Initialize(model);
 
-                UnitController.AddModel(model);
+                UnitController.AddModel(model, true);
             }
             else
             {
